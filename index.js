@@ -10,7 +10,13 @@ io.on('connection', function(socket){
   console.log('Yo! A user got connected, or maybe not ;)');
   socket.on('disconnect', function(){
   	console.log('No! A user got disconnected, or maybe not ;)');
-  })
+  });
+  socket.on('chat message', function(msg){
+  	console.log('message: ' + msg);
+  });
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
 });
 
 http.listen(3000, function(){
