@@ -7,4 +7,6 @@ Not exactly sure of what am I leading to at the last place, here is a short to-d
 2. Change background (style of webpage broadly).
 3. Show how many total clients are active in console.
 4. Broadcast a message to connected users when someone connects or disconnects.
-5. Add private messaging ;)
+5. Add feature of private messaging ;)
+
+Stay tuned!
