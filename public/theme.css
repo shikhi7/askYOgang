@@ -1,6 +1,6 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
       body {
-      	background-image: "chilla.jpg";
+      	background-image: url("chilla.jpg");
       	background-size: cover;
       	background-repeat: no-repeat !important;
       	font: 13px Helvetica, Arial;
