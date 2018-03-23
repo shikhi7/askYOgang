@@ -33,10 +33,6 @@
     form {
     }
 
-    form > div{
-      margin-top:50px;
-    }
-
     #registerForm{
       display: none;
     }
@@ -69,6 +65,10 @@
       border:none;
     }
 
+    #formDiv{
+      margin-top:40px;
+    }
+
     </style>
   </head>
 
@@ -81,24 +81,23 @@
 
       $('#loginForm').submit(function(){
         socket.emit('login_credentials', $('#usernameInput1').val(),$('#passwordInput1').val());
+        console.log("iO emitted");
         return false;
       });
       $('#registerForm').submit(function(){
         if($('#passwordInput2').val() == $('#passwordInput3').val())
           socket.emit('register_credentials', $('#usernameInput2').val(),$('#passwordInput2').val());
         else{
-          console.log($('#passwordInput2').val());
-          console.log($('#passwordInput3').val());
           console.log("Passwords do not match.");
         }
         return false;
       });
 
-      socket.on('accessAllowed', function(msg){
-        console.log(msg);
+      socket.on('accessAllowed', function(site){
+        window.location.href = site;
       });
-      socket.on('accessDenied', function(msg){
-        console.log(msg);
+      socket.on('accessDenied', function(site){
+        window.location.href = site;
       });
 
     });
@@ -107,41 +106,46 @@
   <body>
     <div id="form-controller">
       <div id="topDiv">
-        <button onclick="showLogin()">Already a Member?</button>
-        <button onclick="showRegister()">Sign Up</button>
+        <button onclick="changeView(0)">Already a Member?</button>
+        <button onclick="changeView(1)">Sign Up</button>
       </div>
 
-      <form action="" id="loginForm">
-        <div>
-          <input id="usernameInput1" autocomplete="off" placeholder="Username"/>
-          <input id="passwordInput1" autocomplete="off" placeholder="Password" type="password"/>
-          <button class="button" style="margin-top:20px;">Login</button>
-        </div>
-      </form>
+      <div id="formDiv">
+        <form action="" id="loginForm">
+          <div>
+            <input id="usernameInput1" autocomplete="off" placeholder="Username"/>
+            <input id="passwordInput1" autocomplete="off" placeholder="Password" type="password"/>
+            <button class="button" style="margin-top:20px;">Login</button>
+          </div>
+        </form>
 
-      <form action="" id="registerForm">
-        <div>
-          <input id="usernameInput2" autocomplete="off" placeholder="Username"/>
-          <input id="passwordInput2" autocomplete="off" placeholder="Password" type="password"/>
-          <input id="passwordInput3" autocomplete="off" placeholder="Retype-Password" type="password"/>
-          <button class="button" style="margin-top:20px;">Register</button>
-        </div>
-      </form>
+        <form action="" id="registerForm">
+          <div>
+            <input id="usernameInput2" autocomplete="off" placeholder="Username"/>
+            <input id="passwordInput2" autocomplete="off" placeholder="Password" type="password"/>
+            <input id="passwordInput3" autocomplete="off" placeholder="Retype-Password" type="password"/>
+            <button class="button" style="margin-top:20px;">Register</button>
+          </div>
+        </form>
+      </div>
 
     </div>
 
 
     <script>
-      let lf = document.getElementById("loginForm");
-      let rf = document.getElementById("registerForm");
-      function showLogin(){
-        rf.style.display = "none";
-        lf.style.display = "block";
-      }
-      function showRegister(){
-        lf.style.display = "none";
-        rf.style.display = "block";
+      let lf = $("#loginForm");
+      let rf = $("#registerForm");
+
+      function changeView(indicator){
+        $("#formDiv").fadeOut(function(){
+          if(indicator == 0)
+          {rf.hide();lf.show();}
+          else
+          {lf.hide();rf.show();}
+        });
+        $("#formDiv").fadeIn();
       }
     </script>
+
   </body>
 </html>
