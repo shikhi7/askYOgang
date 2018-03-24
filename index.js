@@ -5,24 +5,25 @@ var io = require('socket.io')(http);
 var path=require('path');
 var mysql = require('mysql');
 
-app.use(express.static(path.join(__dirname, '/public')))
+app.use(express.static(path.join(__dirname, '/cssFiles')))
+app.use(express.static(path.join(__dirname, '/actions')))
 
 userActive = {}
 
 app.get('/home', function(req, res){
     // TODO :: build authentication check here
-    res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/htmlFiles/index.html');
 });
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/login.html');
+  res.sendFile(__dirname + '/htmlFiles/login.html');
 });
 
 let con = mysql.createConnection({
   host: "localhost",
-  user: "username",
-  password: "password",
-  database: "database-name"
+  user: "user",
+  password: "pass",
+  database: "database"
 });
 
 con.connect(function(err) {
