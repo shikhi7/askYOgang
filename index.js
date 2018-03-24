@@ -19,11 +19,16 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/htmlFiles/login.html');
 });
 
+
+// look for better alternatives for the below
+let fs = require('fs');
+let [user, password, databaseName] = fs.readFileSync("databaseInfo.txt").toString().split("\n");
+
 let con = mysql.createConnection({
   host: "localhost",
-  user: "user",
-  password: "pass",
-  database: "database"
+  user: user,
+  password: password,
+  database: databaseName
 });
 
 con.connect(function(err) {
